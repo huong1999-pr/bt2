@@ -1,0 +1,33 @@
+<html>
+  <body id="bt3">
+    <button type="button" onClick="navigatorPage()">
+      Show list of id received from previous page
+    </button>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const index = urlParams.get("id");
+      const url = "https://jsonplaceholder.typicode.com/users/" + index;
+      function navigatorPage() {
+        let listData = document.getElementById("bt3");
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            let li = document.createElement("li");
+            let name = document.createElement("h2");
+            let email = document.createElement("span");
+            name.innerHTML = `${data.name}`;
+            email.innerHTML = `${data.email}`;
+            li.appendChild(name);
+            li.appendChild(email);
+            listData.appendChild(li);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    </script>
+  </body>
+</html>
